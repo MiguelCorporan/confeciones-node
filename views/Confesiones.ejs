@@ -1,4 +1,6 @@
 
+  <%- include("template/head") %>
+  <%- include("template/navbar") %>
    <div class="AllCards">
                 
             <h2 class="Allcah">Estas son las confesiones de todos</h2>
@@ -87,27 +89,11 @@ for (let index = 0; index < MuestraM.length; index++) {
 })
 }
 
-// MuestraM.addEventListener('click', () => {
-//   modal.classList.add('Seve')
-//   console.log('X');
-// })
-
 CloseModal.addEventListener('click', () => {
     modal.classList.remove('Seve')
-
-    console.log('Funciona');
 })
 
-    // module.exports.vas
-
-
-
-     //Delete Card 
- 
-     const form = document.querySelector('#Va')
-
-
-
+const form = document.querySelector('#Va')
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -115,29 +101,19 @@ form.addEventListener('submit', (e) => {
 
     const data = new FormData(form)
 
-   // console.log(text);
-
    const stringifeado = JSON.stringify({password})
 
    console.log(stringifeado);
 
-  // const ana = document.querySelector('.Delete')
-    
-   // console.log(loTengo);
-
-    fetch(`http://localhost:4000/Confesiones/${loTengo}`,{
-
+    fetch(`/Confesiones/${loTengo}`,{
       headers: {'content-type': 'application/json'},
       body: stringifeado,
       method:"delete"
     })
-    .then( res => res.json())
-    .then(result => console.log(result))
+    .then( res => res.ok ? res.json() : Promise.reject("usted no tiene la contraseña"))
+    .then(result => location.reload())
+    .catch(error => location.reload())
 })
-
-
-
-
 
 </script>
 
